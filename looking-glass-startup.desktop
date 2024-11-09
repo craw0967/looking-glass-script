@@ -1,0 +1,29 @@
+# Rename this file to something unique. I generally name it after the VM this will open.
+# Install this to /usr/share/applications/ or ~/.local/share/applications/
+
+[Desktop Entry]
+
+# Rename this to whatever you would like this application to show up as
+Name=Windows 10 LG VM
+
+# Update this comment to whatever you would like to show as this application's description in search results and elsewhere
+Comment=Windows 10 Looking Glass Virtual Machine
+
+# Sorry, this is probably trademarked and/or copyrighted, I won't be distributing it. You will have to supply your own icon.
+# I highly recommend using .svg files as they are scalable and won't distort at different sizes
+# Save icons to /usr/share/icons/ or ~/.local/share/icons/
+Icon=win10-blue-logo.svg
+
+# Execute the provided script. Use option '-n' to specify your VMs name. This will allow you to use the same script for multiple desktop files.
+# If you did not install the script to /usr/local/bin/ then change the path to the script here.
+Exec=/usr/local/bin/looking-glass-startup.sh -n win10-lg
+
+# Set to false if you don't want the terminal to open when you launch the VM and Looking Glass Client
+Terminal=true
+
+Type=Application
+StartupNotify=false
+Categories=KVM;
+
+# Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+Keywords=Games;Gaming;KVM;VM;Qemu;Windows;
