@@ -22,19 +22,19 @@ while getopts ":n:" opt; do
 done
 
 # Check the current state of the VM
-vm_state=$(virsh list --all | grep " $vm_name " | awk '{ print $3}')
+vm_state=$(virsh --connect qemu:///system list --all | grep " $vm_name " | awk '{ print $3}')
 
 # If the VM doesn't exist or is shut down, start it
 if [ "x$vm_state" == "x" ] || ([ "x$vm_state" != "xrunning" ] && [ "x$vm_state" != "xpaused" ]); then
     echo "VM does not exist or is shut down!"
-    virsh start "$vm_name"
+    virsh --connect qemu:///system start "$vm_name"
     # Start the looking-glass-client
     looking-glass-client -S -m KEY_RIGHTCTRL &
     LG_PID=$!
 # If the VM is paused, resume it
 elif [ "x$vm_state" == "xpaused" ]; then
     echo "VM is suspended. Resuming..."
-    virsh resume "$vm_name"
+    virsh --connect qemu:///system resume "$vm_name"
     # Start the looking-glass-client
     looking-glass-client -S -m KEY_RIGHTCTRL &
     LG_PID=$!
@@ -52,10 +52,10 @@ while kill -0 $LG_PID > /dev/null 2>&1; do
 done
 
 # Check the current state of the VM again
-vm_state=$(virsh list --all | grep " $vm_name " | awk '{ print $3}')
+vm_state=$(virsh --connect qemu:///system list --all | grep " $vm_name " | awk '{ print $3}')
 
 # If the VM is still running, suspend it
 if [ "x$vm_state" == "xrunning" ]; then
     echo "VM is running. Suspending..."
-    virsh suspend "$vm_name"
+    virsh --connect qemu:///system suspend "$vm_name"
 fi
